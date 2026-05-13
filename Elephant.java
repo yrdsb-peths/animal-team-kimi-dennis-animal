@@ -56,25 +56,39 @@ public class Elephant extends Actor
     public void act()
     {
         // Add your action code here.
-        
-        if(Greenfoot.isKeyDown("left"))
+        SimpleTimer stamina2Timer = new SimpleTimer();
+        if(Greenfoot.isKeyDown("left") 85j)
         {
             move(-3);
+            MyWorld world = (MyWorld) getWorld();
             facing = "left";
-            if(Greenfoot.isKeyDown("shift"))
+            if(Greenfoot.isKeyDown("shift") && world.stamina > 0)
             {
                 move(-5);
                 facing = "left";
+                if(stamina2Timer.millisElapsed() > 50000)
+                {
+                    return;
+                }
+                world.stamina--;
+                world.staminaLabel.setValue(world.stamina);
             }
         }
         else if(Greenfoot.isKeyDown("right"))
         {
             move(3);  
             facing = "right";
-            if(Greenfoot.isKeyDown("shift"))
+            MyWorld world = (MyWorld) getWorld();
+            if(Greenfoot.isKeyDown("shift") && world.stamina > 0)
             {
                 move(5);
                 facing = "right";
+                if(stamina2Timer.millisElapsed() > 50000)
+                {
+                    return;
+                }
+                world.stamina--;
+                world.staminaLabel.setValue(world.stamina);
             }
         }   
         
