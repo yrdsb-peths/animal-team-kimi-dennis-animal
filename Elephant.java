@@ -1,112 +1,116 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import greenfoot.*;
 
 public class Elephant extends Actor
 {
-    /**
-     * Act - do whatever the Elephant wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     GreenfootSound elephantSound = new GreenfootSound("elephantcub.mp3");
+
     GreenfootImage[] idleRight = new GreenfootImage[8];
     GreenfootImage[] idleLeft = new GreenfootImage[8];
 
     String facing = "right";
+
     SimpleTimer animationTimer = new SimpleTimer();
+    SimpleTimer staminaTimer = new SimpleTimer();
+
+    int imageIndex = 0;
+
     public Elephant()
     {
-        for(int i =0; i< idleRight.length; i++)
+        for(int i = 0; i < idleRight.length; i++)
         {
             idleRight[i] = new GreenfootImage("images/elephant_idle/idle" + i + ".png");
-            idleRight[i].scale(100,100);
+            idleRight[i].scale(100, 100);
         }
-        
-        for(int i =0; i< idleLeft.length; i++)
+
+        for(int i = 0; i < idleLeft.length; i++)
         {
             idleLeft[i] = new GreenfootImage("images/elephant_idle/idle" + i + ".png");
             idleLeft[i].mirrorHorizontally();
-            idleLeft[i].scale(100,100);
+            idleLeft[i].scale(100, 100);
         }
-        
+
         animationTimer.mark();
-        
+        staminaTimer.mark();
+
         setImage(idleRight[0]);
     }
 
-    int imageIndex = 0;
     public void animateElephant()
     {
         if(animationTimer.millisElapsed() < 200)
         {
             return;
         }
+
         animationTimer.mark();
+
         if(facing.equals("right"))
         {
             setImage(idleRight[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleRight.length;
         }
         else
         {
             setImage(idleLeft[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleLeft.length;
         }
+
+        imageIndex = (imageIndex + 1) % idleRight.length;
     }
-    
-    public void act()
+
+        public void act()
     {
-        // Add your action code here.
-        SimpleTimer stamina2Timer = new SimpleTimer();
-        if(Greenfoot.isKeyDown("left") 85j)
+        if(!(getWorld() instanceof MyWorld))
         {
-            move(-3);
-            MyWorld world = (MyWorld) getWorld();
-            facing = "left";
-            if(Greenfoot.isKeyDown("shift") && world.stamina > 0)
+            animateElephant();
+            return;
+        }
+    
+        MyWorld world = (MyWorld)getWorld();
+    
+        int speed = 3;
+    
+        if(Greenfoot.isKeyDown("shift") && world.stamina > 0)
+        {
+            speed = 10;
+    
+            if(staminaTimer.millisElapsed() > 200)
             {
-                move(-5);
-                facing = "left";
-                if(stamina2Timer.millisElapsed() > 50000)
-                {
-                    return;
-                }
                 world.stamina--;
                 world.staminaLabel.setValue(world.stamina);
+    
+                staminaTimer.mark();
             }
         }
-        else if(Greenfoot.isKeyDown("right"))
+    
+        if(Greenfoot.isKeyDown("left"))
         {
-            move(3);  
+            move(-speed);
+            facing = "left";
+        }
+    
+        if(Greenfoot.isKeyDown("right"))
+        {
+            move(speed);
             facing = "right";
-            MyWorld world = (MyWorld) getWorld();
-            if(Greenfoot.isKeyDown("shift") && world.stamina > 0)
-            {
-                move(5);
-                facing = "right";
-                if(stamina2Timer.millisElapsed() > 50000)
-                {
-                    return;
-                }
-                world.stamina--;
-                world.staminaLabel.setValue(world.stamina);
-            }
-        }   
-        
+        }
+    
         eat();
-        
         animateElephant();
     }
+
     
+
     public void eat()
     {
         if(isTouching(Apple.class))
         {
-            removeTouching(Apple.class);           
-            MyWorld world = (MyWorld) getWorld();
+            removeTouching(Apple.class);
+
+            MyWorld world = (MyWorld)getWorld();
+
             world.creatApple();
             world.increaseScore();
+
             elephantSound.play();
         }
-
     }
 }

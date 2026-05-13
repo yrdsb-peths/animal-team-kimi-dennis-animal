@@ -43,12 +43,16 @@ public class MyWorld extends World {
     SimpleTimer staminaTimer = new SimpleTimer();
     public void increaseStamina()
     {
-        if(staminaTimer.millisElapsed() < 10)
+        if(staminaTimer.millisElapsed() < 1000)
         {
             return;
         }
+    
         stamina++;
+    
         staminaLabel.setValue(stamina);
+    
+        staminaTimer.mark();
     }
     
     public void creatApple()
@@ -58,5 +62,10 @@ public class MyWorld extends World {
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(apple, x, y);
+    }
+    
+    public void act()
+    {
+        increaseStamina();
     }
 }
