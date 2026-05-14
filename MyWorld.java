@@ -3,7 +3,9 @@ import greenfoot.*;
 public class MyWorld extends World {
     
     public int score = 0;
+    public int stamina = 10;
     Label scoreLabel;
+    Label staminaLabel;
     int level = 1;
     
     public MyWorld() {
@@ -14,6 +16,9 @@ public class MyWorld extends World {
         
         scoreLabel = new Label(0, 80);
         addObject(scoreLabel,50 ,50);
+        
+        staminaLabel = new Label(10, 80);
+        addObject(staminaLabel,450 ,50);
         
         creatApple();
     }
@@ -35,6 +40,21 @@ public class MyWorld extends World {
         }
     }
     
+    SimpleTimer staminaTimer = new SimpleTimer();
+    public void increaseStamina()
+    {
+        if(staminaTimer.millisElapsed() < 1000)
+        {
+            return;
+        }
+    
+        stamina++;
+    
+        staminaLabel.setValue(stamina);
+    
+        staminaTimer.mark();
+    }
+    
     public void creatApple()
     {
         Apple apple = new Apple();
@@ -42,5 +62,10 @@ public class MyWorld extends World {
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(apple, x, y);
+    }
+    
+    public void act()
+    {
+        increaseStamina();
     }
 }
