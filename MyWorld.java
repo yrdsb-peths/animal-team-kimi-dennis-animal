@@ -1,18 +1,16 @@
 import greenfoot.*;
 
 public class MyWorld extends World {
-    
     public int score = 0;
     public int stamina = 10;
     Label scoreLabel;
     Label staminaLabel;
     int level = 1;
-    
     public MyWorld() {
         super(600, 400, 1, false);
         
-        Elephant elephant = new Elephant();
-        addObject(elephant, 300, 200);
+        Monkey monkey = new Monkey();
+        addObject(monkey, 300, 200);
         
         scoreLabel = new Label(0, 80);
         addObject(scoreLabel,50 ,50);
@@ -20,7 +18,7 @@ public class MyWorld extends World {
         staminaLabel = new Label(10, 80);
         addObject(staminaLabel,450 ,50);
         
-        creatApple();
+        creatBanana();
     }
     
     public void gameOver()
@@ -55,13 +53,13 @@ public class MyWorld extends World {
         staminaTimer.mark();
     }
     
-    public void creatApple()
+    public void creatBanana()
     {
-        Apple apple = new Apple();
-        apple.setSpeed(level);
+        Banana b = new Banana();
+        b.setSpeed(level);
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
-        addObject(apple, x, y);
+        addObject(b, x, y);
     }
     
     public void act()
