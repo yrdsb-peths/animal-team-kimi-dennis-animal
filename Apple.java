@@ -2,7 +2,14 @@ import greenfoot.*;
 
 public class Apple extends Actor
 {
+    private static GreenfootImage appleImage;
     int speed = 1;
+    public Apple()
+    {
+        appleImage = new GreenfootImage("apple1");
+        setImage(appleImage);
+    }
+    
     public void act()
     {
         int x = getX();
