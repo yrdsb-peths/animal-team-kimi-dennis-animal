@@ -18,7 +18,7 @@ public class MyWorld extends World {
         staminaLabel = new Label(10, 80);
         addObject(staminaLabel,450 ,50);
         
-        creatBanana();
+        creatApple();
     }
     
     public void gameOver()
@@ -53,13 +53,13 @@ public class MyWorld extends World {
         staminaTimer.mark();
     }
     
-    public void creatBanana()
+    public void creatApple()
     {
-        Banana b = new Banana();
-        b.setSpeed(level);
+        Apple apple = new Apple();
+        apple.setSpeed(level);
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
-        addObject(b, x, y);
+        addObject(apple, x, y);
     }
     
     public void act()
