@@ -49,13 +49,23 @@ public class Monkey extends Actor
     {
         if(Greenfoot.isKeyDown("left"))
         {
-            move(-10);
+            move(-5);
             facing = "left";
+            if(Greenfoot.isKeyDown("shift"))
+            {
+                move(-10);
+                facing = "left";
+            }
         }
         else if(Greenfoot.isKeyDown("right"))
         {
-            move(10);
+            move(5);
             facing = "right";
+            if(Greenfoot.isKeyDown("shift"))
+            {
+                move(10);
+                facing = "right";
+            }
         }
         eat();
         

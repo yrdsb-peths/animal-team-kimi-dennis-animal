@@ -3,6 +3,7 @@ import greenfoot.*;
 public class MyWorld extends World 
 {
     public int score = 0;
+    public int stamina = 100;
     Label scoreLabel;
     int level = 1;
     public MyWorld() 
@@ -14,8 +15,14 @@ public class MyWorld extends World
 
         scoreLabel = new Label("0", 100);
         addObject(scoreLabel, 50, 50);
-
+        
+        StaminaBar staminaBar;
+        staminaBar = new StaminaBar();
+        addObject(staminaBar, 500, 100);
+        staminaBar.updateStamina(stamina);
+        
         createApple();
+        createBomb();
     }
 
     public void gameOver()
@@ -42,5 +49,14 @@ public class MyWorld extends World
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(apple, x, y);
+    }
+    
+    public void createBomb()
+    {
+        Boom bomb = new Boom();
+        bomb.setSpeed(level);
+        int x = Greenfoot.getRandomNumber(600);
+        int y = 0;
+        addObject(bomb, x, y);
     }
 }

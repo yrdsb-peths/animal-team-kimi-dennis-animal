@@ -1,8 +1,8 @@
-import greenfoot.*;
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Apple extends Actor
+
+public class Boom extends Actor
 {
-
     int speed = 1;
 
     public void act()
@@ -13,9 +13,13 @@ public class Apple extends Actor
         
         
         MyWorld world = (MyWorld) getWorld();
-        if(getY() >= world.getHeight())
+        if(isTouching(Monkey.class))
         {
             world.gameOver();
+            Greenfoot.stop();
+        }
+        else if(getY() >= world.getHeight())
+        {
             world.removeObject(this);
         }
     }
@@ -23,5 +27,11 @@ public class Apple extends Actor
     public void setSpeed(int spd)
     {
         speed=spd;
+    }
+    
+    public Boom()
+    {
+        GreenfootImage image = getImage();
+        image.scale(60, 60);
     }
 }
