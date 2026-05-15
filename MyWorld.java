@@ -1,4 +1,5 @@
 import greenfoot.*;
+
 public class MyWorld extends World 
 {
     public int score = 0;
