@@ -1,26 +1,27 @@
 import greenfoot.*;
-
 public class Apple extends Actor
 {
     int speed = 1;
-    
+
     public void act()
     {
-        int x = getX();
-        int y = getY() + speed;
-        setLocation(x, y);
-        
-        
-        MyWorld world = (MyWorld) getWorld();
-        if(getY() >= world.getHeight())
+        setLocation(getX(), getY() + speed);
+
+        if(getY() >= getWorld().getHeight() - 1)
         {
-            world.gameOver();
-            world.removeObject(this);
+            if(getWorld() instanceof MyWorld)
+            {
+                MyWorld world = (MyWorld) getWorld();
+                world.useHeart(13);
+                world.createApple();
+                world.removeObject(this);
+                return;
+            }
         }
     }
-    
-    public void setSpeed(int spd)
+
+    public void setSpeed(int speed)
     {
-        speed=spd;
+        this.speed = speed;
     }
 }
