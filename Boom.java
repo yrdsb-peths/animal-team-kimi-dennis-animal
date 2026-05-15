@@ -1,37 +1,44 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
-
+import greenfoot.*;
 public class Boom extends Actor
 {
     int speed = 1;
 
     public void act()
     {
-        int x = getX();
-        int y = getY() + speed;
-        setLocation(x, y);
-        
-        
-        MyWorld world = (MyWorld) getWorld();
+        setLocation(getX(), getY() + speed);
+
         if(isTouching(Monkey.class))
         {
-            world.gameOver();
-            Greenfoot.stop();
+            if(getWorld() instanceof MyWorld)
+            {
+                MyWorld world = (MyWorld) getWorld();
+                world.useHeart(13);
+                world.createBomb();
+                world.removeObject(this);
+                return;  // 立刻停止，不再往下执行
+            }
         }
-        else if(getY() >= world.getHeight())
+
+        if(getY() >= getWorld().getHeight() - 1)
         {
-            world.removeObject(this);
+            if(getWorld() instanceof MyWorld)
+            {
+                MyWorld world = (MyWorld) getWorld();
+                world.createBomb();
+                world.removeObject(this);
+                return;  // 立刻停止
+            }
         }
     }
-    
-    public void setSpeed(int spd)
+
+    public void setSpeed(int speed)
     {
-        speed=spd;
+        this.speed = speed;
     }
     
     public Boom()
     {
         GreenfootImage image = getImage();
-        image.scale(60, 60);
+        image.scale(50, 50);
     }
 }
