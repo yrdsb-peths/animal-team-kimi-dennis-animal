@@ -15,7 +15,7 @@ public class StaminaBar extends Actor
     }
     public void updateStamina(int stamina)
     {
-        // 100点耐力 映射到 16张图（0-15）
+       
         int frame = (int)((100 - stamina) / 100.0 * 15);
         if(frame > 15) frame = 15;
         if(frame < 0)  frame = 0;

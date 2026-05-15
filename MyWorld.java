@@ -52,7 +52,7 @@ public class MyWorld extends World
 
     public void createApple()
     {
-        if(isGameOver()) return;   // 游戏结束后不再生成
+        if(isGameOver()) return;
         Apple apple = new Apple();
         apple.setSpeed(level);
         int x = Greenfoot.getRandomNumber(600);
@@ -61,7 +61,7 @@ public class MyWorld extends World
     
     public void createBomb()
     {
-        if(isGameOver()) return;   // 游戏结束后不再生成
+        if(isGameOver()) return;
         Boom bomb = new Boom();
         bomb.setSpeed(level);
         int x = Greenfoot.getRandomNumber(600);

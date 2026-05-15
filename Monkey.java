@@ -8,8 +8,8 @@ public class Monkey extends Actor
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
     SimpleTimer staminaTimer = new SimpleTimer();
-    SimpleTimer exhaustedTimer = new SimpleTimer();  // 耗尽后的冷却计时器
-    boolean isExhausted = false;                     // 是否处于耗尽状态
+    SimpleTimer exhaustedTimer = new SimpleTimer();  
+    boolean isExhausted = false;                     
 
     public Monkey()
     {
@@ -80,13 +80,13 @@ public class Monkey extends Actor
             }
         }
 
-        clampToWorld();   // 空气墙
+        clampToWorld();  
         eat();
         animateMonkey();
         handleStamina();
     }
 
-    // 限制猴子不超出世界边界
+    
     public void clampToWorld()
     {
         int halfW = getImage().getWidth() / 2;
@@ -125,14 +125,14 @@ public class Monkey extends Actor
         if(!(getWorld() instanceof MyWorld)) return;
         MyWorld world = (MyWorld) getWorld();
 
-        // 耗尽状态：等待3秒冷却
+        
         if(isExhausted)
         {
             if(exhaustedTimer.millisElapsed() >= 3000)
             {
-                isExhausted = false;   // 3秒后解除耗尽
+                isExhausted = false;   
             }
-            return;                    // 冷却期间不恢复也不消耗
+            return;                   
         }
 
         if(staminaTimer.millisElapsed() >= 63)
@@ -144,11 +144,11 @@ public class Monkey extends Actor
                 {
                     world.useStamina(1);
 
-                    // 刚好耗尽，进入冷却
+                    
                     if(world.stamina == 0)
                     {
                         isExhausted = true;
-                        exhaustedTimer.mark();   // 开始计时3秒
+                        exhaustedTimer.mark();  
                     }
                 }
             }

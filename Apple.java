@@ -15,7 +15,7 @@ public class Apple extends Actor
                 world.useHeart(13);
                 world.createApple();
                 world.removeObject(this);
-                return;  // 立刻停止
+                return;
             }
         }
     }
